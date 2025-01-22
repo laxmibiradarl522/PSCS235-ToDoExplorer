@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #chatbox {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .bot {
+            background-color: #e0e0e0;
+            align-self: flex-start;
+        }
+        .user {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+        #input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        #input-box {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #send-button, #voice-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        #voice-button {
+            background-color: #28a745; /* Green for voice input */
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbox"></div>
+    <div id="input-area">
+        <input type="text" id="input-box" placeholder="Type your message..." />
+        <button id="send-button">Send</button>
+        <button id="voice-button">Voice Input</button>
+    </div>
+
+    <script>
+        document.getElementById("send-button").addEventListener("click", function () {
+            let message = document.getElementById("input-box").value;
+            if (message) {
+                addMessage(message, "user");
+                document.getElementById("input-box").value = "";
+                sendMessage(message);
+            }
+        });
+
+        document.getElementById("voice-button").addEventListener("click", function () {
+            // Send a request to Flask to trigger voice recognition (chat2 route)
+            sendVoiceRequest();
+        });
+
+        function addMessage(message, sender) {
+            const chatbox = document.getElementById("chatbox");
+            const div = document.createElement("div");
+            div.classList.add("message", sender);
+            div.innerText = message;
+            chatbox.appendChild(div);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function sendMessage(message) {
+            fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                addMessage(data.response, "bot");
+                addMessage("Kannada: " + data.kannada_translation, "bot");
+                addMessage("Hindi: " + data.hindi_translation, "bot");
+                addMessage("Tamil: " + data.tamil_translation, "bot");
+                addMessage("Malayalam: " + data.malayalam_translation, "bot");
+            });
+        }
+
+        function sendVoiceRequest() {
+            fetch("/chat2", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the result from chat2
+                addMessage(data.response, "bot");
+                addMessage("Kannada: " + data.kannada_translation, "bot");
+                addMessage("Hindi: " + data.hindi_translation, "bot");
+                addMessage("Tamil: " + data.tamil_translation, "bot");
+                addMessage("Malayalam: " + data.malayalam_translation, "bot");
+            });
+        }
+    </script>
+</body>
+</html>

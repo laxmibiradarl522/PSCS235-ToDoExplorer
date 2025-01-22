@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Data Form</title>
+    <style>
+        /* CSS to center the form */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4; /* Optional background color */
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px; /* Max width of the form */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Grid layout for form fields */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 15px;
+        }
+
+        .form-grid input[type="text"], .form-grid input[type="file"], .form-grid button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box; /* Ensures padding is included in the width */
+        }
+
+        /* Style for the submit button */
+        button {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: darkorange;
+        }
+
+        /* Label adjustments */
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Enter Equipment Data</h1>
+        <form action="{{ url_for('add_equipment') }}" method="post" enctype="multipart/form-data">
+            <div class="form-grid">
+                <input type="text" name="equipment_type" placeholder="Equipment Type" required>
+                <input type="text" name="equipment_name" placeholder="Equipment Name" required>
+                <input type="text" name="brand" placeholder="Brand" required>
+                <input type="text" name="age" placeholder="Age" required>
+                <input type="text" name="condition" placeholder="Condition" required>
+                <input type="text" name="usage_frequency" placeholder="Usage Frequency" required>
+                <input type="text" name="fuel_type" placeholder="Fuel Type" required>
+                <input type="text" name="horsepower" placeholder="Horsepower" required>
+                <input type="text" name="maintenance_score" placeholder="Maintenance Score" required>
+                <input type="text" name="location" placeholder="Location" required>
+                <input type="text" name="demand_level" placeholder="Demand Level" required>
+                <input type="text" name="rental_duration_preference" placeholder="Rental Duration Preference" required>
+                <input type="text" name="fuel_efficiency" placeholder="Fuel Efficiency" required>
+                <input type="text" name="technology_level" placeholder="Technology Level" required>
+                <input type="text" name="weather_dependency" placeholder="Weather Dependency" required>
+                <input type="text" name="seasonal_demand_multiplier" placeholder="Seasonal Demand Multiplier" required>
+            </div>
+
+            <!-- Image Uploads in rows of 3 -->
+            <div class="form-grid">
+                <div>
+                    <label for="image1">Upload Image 1:</label>
+                    <input type="file" name="image1" accept="image/*" required>
+                </div>
+                <div>
+                    <label for="image2">Upload Image 2:</label>
+                    <input type="file" name="image2" accept="image/*" required>
+                </div>
+                <div>
+                    <label for="image3">Upload Image 3:</label>
+                    <input type="file" name="image3" accept="image/*" required>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit Equipment Data</button>
+        </form>
+    </div>
+</body>
+</html>

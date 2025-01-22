@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<style>
+body {
+  background-image: url({{ url_for('static', filename='images/2.jpg') }})
+
+  background-repeat: no-repeat;
+  background-size: 100% 150%;
+}
+</style> 
+</head>
+
+
+
+
+
+<body background="{{ url_for('static', filename='images/2.jpg') }}"> 
+ <div class="login" align="center">
+	<h1>Advicing Best Crop </h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict1')}}"method="post">
+    
+		<input type="text" name="interview_score2" placeholder="temperature" required="required" /><br><br><br>
+		<input type="text" name="interview_score3" placeholder="humidity" required="required" /><br><br><br>
+		<input type="text" name="interview_score4" placeholder="ph" required="required" /><br><br><br>
+		<input type="text" name="interview_score5" placeholder="rainfall" required="required" /><br><br><br>
+		
+        <button type="submit" class="btn btn-primary btn-block btn-large">advice the Best crop</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction1_text }}
+   <br>
+   <br>
+   {{temp1}}
+   <br>
+   <br>
+   {{wind_speed}}
+   <br>
+   <br>
+   {{latitude}}
+   <br>
+   <br>
+   {{longitude}}
+   <br>
+   <br>
+   {{description}}
+   <br>
+   <br>
+   {{pressure}}
+   <br>
+   <br>
+   {{humidity}}
+   
+
+ </div>
+
+
+</body>
+</html>

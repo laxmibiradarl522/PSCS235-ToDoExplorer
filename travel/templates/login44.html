@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from techsometimes.com/products/html/farmus-html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Oct 2023 14:52:24 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Farmus - Agriculture and Organic Farm HTML5 Template">
+    <meta name="description" content="Farmus - Agriculture and Organic Farm HTML5 Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Farmus - Agriculture and Organic Farm HTML5 Template</title>
+
+    <!-- Apple Favicon -->
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo/favicon.svg') }}">
+
+    <!-- All Device Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/logo/icon.svg') }}">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- All Icons -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/myicon.css') }}">
+
+    <!-- Plugin -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plugins.min.css') }}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+
+    <!-- Responsive -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.min.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="preloder"></div>
+    
+    <div id="main-wrapper">
+        <header>
+            <!-- Top Bar Start -->
+            <div class="top-bar v1">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-2 d-none d-xl-block">
+                            <div class="top-bar-logo">
+                                <a href="index-2.html"><img src="assets/img/logo/Logo.svg" alt="Logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 p-xl-0">
+                            
+                            </div>
+                        </div>
+                        <div class="col-xl-2 d-none d-xl-block">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Top Bar End -->
+            <!-- Menu Bar Start -->
+            <div class="menu-bar v1">
+                <div class="container">
+                    <div class="menu-bar-content">
+                        <nav class="main-menu">
+                            <ul>
+                                <li class="has-dropdown active">
+                                    <a href="#">Home</a>
+                                    <ul>
+                                        <li class="active"><a href="index-2.html">Home 1</a></li>
+                                        <li><a href="index-3.html">Home 2</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li class="has-dropdown">
+                                    <a href="#">Services</a>
+                                    <ul>
+                                        <li><a href="service.html">Service</a></li>
+                                        <li><a href="service-details.html">Service Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-dropdown">
+                                    <a href="#">Projects</a>
+                                    <ul>
+                                        <li><a href="projects.html">Projects</a></li>
+                                        <li><a href="projects-details.html">Projects Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-dropdown">
+                                    <a href="#">Blog</a>
+                                    <ul>
+                                        <li><a href="blog.html">Blog</a></li>
+                                        <li><a href="blog-details.html">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-dropdown">
+                                    <a href="#">Page</a>
+                                    <ul>
+                                        <li><a href="faq.html">Faq</a></li>
+                                    </ul>
+                                </li>
+                                 <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </nav>
+                        <div class="social-link">
+                            <ul>
+                                <li><a href="#"><span class="my-icon icon-facebook"></span></a></li>
+                                <li><a href="#"><span class="my-icon icon-instagram"></span></a></li>
+                                <li><a href="#"><span class="my-icon icon-twitter"></span></a></li>
+                                <li><a href="#"><span class="my-icon icon-linkedin-in"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Menu Bar End -->
+        </header>
+        <main>
+<!-- Banner Start -->
+<section class="banner v1 bg-cover-center" data-background="{{ url_for('static', filename='img/banner/v1/banner-1.jpg') }}">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="banner-content">
+     <!-- Main Input For Receiving Query to our ML -->
+<form action="{{ url_for('logedin')}}" method="post">
+    <input type="text" name="user_id" placeholder="user_id" required="required" style="width: 100%; padding: 10px;" /><br><br><br>
+    <input type="password" name="password" placeholder="password" required="required" style="width: 100%; padding: 10px;" /><br><br><br>
+
+    <button type="submit" class="btn btn-primary btn-block btn-large" style="width: 100%; padding: 10px; font-size: 18px;">Login</button>
+</form>
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<form action="{{ url_for('register')}}" method="post">
+    <input type="text" name="user_id" placeholder="user" required="required" style="width: 100%; padding: 10px;" /><br><br><br>
+    <input type="password" name="password" placeholder="password" required="required" style="width: 100%; padding: 10px;" /><br><br><br>
+
+    <button type="submit" class="btn btn-primary btn-block btn-large" style="width: 100%; padding: 10px; font-size: 18px;">Register</button>
+</form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="line-shap" data-background="{{ url_for('static', filename='img/banner/v1/line-shap.svg') }}"></div>
+    <div class="lip-shap" data-background="{{ url_for('static', filename='img/banner/v1/lip-left.svg') }}"></div>
+    <div class="circle-shap"></div>
+    <div class="circle-dot-shap"></div>
+    <div class="right-bottom-shap" data-background="{{ url_for('static', filename='img/banner/v1/right-bottom-shap.png') }}"></div>
+</section>
+<!-- Banner End -->
+
+
+        </main>
+
+
+
+
+
+    </div>
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='js/jquery-3.7.0.min.js') }}"></script>
+
+<!-- Bootstrap -->
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+<!-- Plugins -->
+<script src="{{ url_for('static', filename='js/plugins.min.js') }}"></script>
+
+<!-- Index -->
+<script src="{{ url_for('static', filename='js/index.min.js') }}"></script>
+
+</body>
+
+
+<!-- Mirrored from techsometimes.com/products/html/farmus-html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Oct 2023 14:55:58 GMT -->
+</html>

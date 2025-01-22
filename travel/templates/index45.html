@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Search</title>
+    <style>
+        body, html {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-bar {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 80%;
+            max-width: 600px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: darkorange;
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            margin-bottom: 20px;
+            padding: 15px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .product-card .slider {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-card .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .product-card .slider img.active {
+            display: block;
+        }
+
+        .product-card .slider button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .product-card .slider .prev {
+            left: 10px;
+        }
+
+        .product-card .slider .next {
+            right: 10px;
+        }
+
+        .product-card .product-details {
+            display: none;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .product-card .product-details p {
+            margin: 5px 0;
+        }
+
+        .product-card button {
+            padding: 8px 16px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .product-card button:hover {
+            background-color: darkorange;
+        }
+
+        .product-card .contact-info {
+            display: none;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Search Bar (Fixed at the top) -->
+    <div class="search-bar">
+        <input type="text" id="equipment-type" placeholder="Enter Equipment Type">
+        <button onclick="searchEquipment()">Search</button>
+    </div>
+
+    <!-- Container for Search Results -->
+    <div class="container" id="results">
+        <!-- Equipment images and details will be displayed here -->
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        // Function to handle the image slider
+        function showSlide(index, sliderId) {
+            let slides = document.querySelectorAll(`#${sliderId} img`);
+            if (index >= slides.length) currentSlide = 0;
+            if (index < 0) currentSlide = slides.length - 1;
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === currentSlide) slide.classList.add('active');
+            });
+        }
+
+        function nextSlide(sliderId) {
+            currentSlide++;
+            showSlide(currentSlide, sliderId);
+        }
+
+        function prevSlide(sliderId) {
+            currentSlide--;
+            showSlide(currentSlide, sliderId);
+        }
+
+        // Search function
+        function searchEquipment() {
+            let equipmentType = document.getElementById('equipment-type').value;
+            if (!equipmentType) {
+                alert("Please enter an equipment type.");
+                return;
+            }
+
+            fetch(`/search?equipment_type=${equipmentType}`)
+                .then(response => response.json())
+                .then(data => {
+                    let resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = '';  // Clear previous results
+
+                    if (data.results.length === 0) {
+                        resultsDiv.innerHTML = '<p>No equipment found.</p>';
+                        return;
+                    }
+
+                    // Create the product cards for each piece of equipment
+                    data.results.forEach((equipment, index) => {
+                        let sliderId = `slider-${index}`;
+                        let productCardHTML = 
+                            `<div class="product-card" id="product-card-${index}">
+                                <div class="slider" id="${sliderId}">
+                                    <img src="${equipment.image1}" class="active" alt="Image 1">
+                                    <img src="${equipment.image2}" alt="Image 2">
+                                    <img src="${equipment.image3}" alt="Image 3">
+                                    <button class="prev" onclick="prevSlide('${sliderId}')">❮</button>
+                                    <button class="next" onclick="nextSlide('${sliderId}')">❯</button>
+                                </div>
+                                
+                                <!-- Button to Show Details -->
+                                <button onclick="showDetails(${index})">Show Details</button>
+
+                                <!-- Product Details (Initially hidden) -->
+                                <div class="product-details" id="product-details-${index}">
+                                    <p><strong>Name:</strong> ${equipment.equipment_name}</p>
+                                    <p><strong>Brand:</strong> ${equipment.brand}</p>
+                                    <p><strong>Age:</strong> ${equipment.age}</p>
+                                    <p><strong>Condition:</strong> ${equipment.condition}</p>
+                                    <p><strong>Usage Frequency:</strong> ${equipment.usage_frequency}</p>
+                                    <p><strong>Fuel Type:</strong> ${equipment.fuel_type}</p>
+                                    <p><strong>Horsepower:</strong> ${equipment.horsepower}</p>
+                                    <p><strong>Price:</strong> RS.${equipment.price}</p>
+                                    <p><strong>Location:</strong> ${equipment.location}</p>
+                                    <p><strong>Demand Level:</strong> ${equipment.demand_level}</p>
+                                    <p><strong>Address:</strong> ${equipment.address}</p>
+                                    <p><strong>Pincode:</strong> ${equipment.pincode}</p>
+                                </div>
+
+                                <!-- "Contact Owner" Button -->
+                                <button onclick="contactOwner(${index})">Contact Owner</button>
+
+                                <!-- Contact Information (Initially hidden) -->
+                                <div class="contact-info" id="contact-info-${index}">
+                                    <p><strong>Phone:</strong> <span id="phone-number-${index}">${equipment.mobile_number}</span></p>
+                                </div>
+                            </div>`;
+                        resultsDiv.innerHTML += productCardHTML;
+                        showSlide(currentSlide, sliderId); // Show the first image
+                    });
+                });
+        }
+
+        // Show the product details when the "Show Details" button is clicked
+        function showDetails(index) {
+            let details = document.getElementById(`product-details-${index}`);
+            details.style.display = details.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Show actual phone number when "Contact Owner" is clicked
+        function contactOwner(index) {
+            let contactInfo = document.getElementById(`contact-info-${index}`);
+            contactInfo.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
